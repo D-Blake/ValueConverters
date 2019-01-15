@@ -1,0 +1,111 @@
+﻿<Window x:Class="ValueConvertersProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValueConvertersProject"
+        xmlns:con="clr-namespace:ValueConvertersProject.Converter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Background="Orange">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <con:DecimalToHex x:Key="DecToHex"/>
+        <con:ByteToColorConverter x:Key="ByteToColor"/>
+    </Window.Resources>
+    <Viewbox Height="auto" Width="auto">
+
+
+
+
+        <StackPanel x:Name="ColorStack" Background="Black" MinHeight="200" MinWidth="400">
+
+            <Grid Margin="10" x:Name="ColorGrid">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="one"/>
+                    <ColumnDefinition x:Name="two"/>
+                    <ColumnDefinition x:Name="three"/>
+                    <ColumnDefinition x:Name="four"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="uno"/>
+                    <RowDefinition x:Name="dos"/>
+                    <RowDefinition x:Name="tres"/>
+                    <RowDefinition x:Name="cuatro"/>
+                </Grid.RowDefinitions>
+                
+                <TextBox Grid.Column="0" Grid.Row="0" x:Name="decimal1" TextAlignment="Center" Text="{Binding Path=AValue, Mode=TwoWay}"/>
+                <TextBox Grid.Column="1" Grid.Row="0" x:Name="decimal2" TextAlignment="Center" Text="{Binding Path=RValue, Mode=TwoWay}"/>
+                <TextBox Grid.Column="2" Grid.Row="0" x:Name="decimal3" TextAlignment="Center" Text="{Binding Path=GValue, Mode=TwoWay}"/>
+                <TextBox Grid.Column="3" Grid.Row="0" x:Name="decimal4" TextAlignment="Center" Text="{Binding Path=BValue, Mode=TwoWay}"/>
+
+                <TextBox Grid.Column="0" Grid.Row="1" TextAlignment="Center" 
+                         Text="{Binding Path=AValue, Mode=TwoWay, Converter={StaticResource ResourceKey=DecToHex}}"/>
+                <TextBox Grid.Column="1" Grid.Row="1" TextAlignment="Center" 
+                         Text="{Binding Path=RValue, Mode=TwoWay, Converter={StaticResource ResourceKey=DecToHex}}"/>
+                <TextBox Grid.Column="2" Grid.Row="1" TextAlignment="Center" 
+                         Text="{Binding Path=GValue, Mode=TwoWay, Converter={StaticResource ResourceKey=DecToHex}}"/>
+                <TextBox Grid.Column="3" Grid.Row="1" TextAlignment="Center" 
+                         Text="{Binding Path=BValue, Mode=TwoWay, Converter={StaticResource ResourceKey=DecToHex}}"/>
+
+            </Grid>
+
+            <CheckBox IsChecked="True" x:Name="ShowHide" Foreground="White" Content="Display Preview With Sliders" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"/>
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="first"/>
+                    <ColumnDefinition x:Name="second"/>
+                    <ColumnDefinition x:Name="third"/>
+                    <ColumnDefinition x:Name="fourth"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="k"/>
+                    <RowDefinition x:Name="kk"/>
+                    <RowDefinition x:Name="kkkk"/>
+                    <RowDefinition x:Name="kkkkk"/>
+                </Grid.RowDefinitions>
+
+                <Label Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                       Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" x:Name="ColorLabel"/>
+
+
+                <Slider x:Name="slider1" 
+                        Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                        Value="{Binding Path=AValue, Mode=TwoWay}" 
+                        Minimum="0" Maximum="255" SmallChange="1" Grid.Column="0" Grid.Row="1"/>
+                <Slider x:Name="slider2" 
+                        Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                        Value="{Binding Path=RValue, Mode=TwoWay}" 
+                        Minimum="0" Maximum="255" SmallChange="1" Grid.Column="1" Grid.Row="1"/>
+                <Slider x:Name="slider3" 
+                        Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                        Value="{Binding Path=GValue, Mode=TwoWay}" 
+                        Minimum="0" Maximum="255" SmallChange="1" Grid.Column="2" Grid.Row="1"/>
+                <Slider x:Name="slider4" 
+                        Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                        Value="{Binding Path=BValue, Mode=TwoWay}" 
+                        Minimum="0" Maximum="255" SmallChange="1" Grid.Column="3" Grid.Row="1"/>
+
+                <Label Margin="2" Grid.Row="2" Grid.Column="0" Background="White" Content="{Binding Path=AValue}" BorderBrush="Aquamarine" BorderThickness="2"/>
+                <Label Margin="2" Grid.Row="2" Grid.Column="1" Background="White" Content="{Binding Path=RValue}" BorderBrush="Aquamarine" BorderThickness="2"/>
+                <Label Margin="2" Grid.Row="2" Grid.Column="2" Background="White" Content="{Binding Path=GValue}" BorderBrush="Aquamarine" BorderThickness="2"/>
+                <Label Margin="2" Grid.Row="2" Grid.Column="3" Background="White" Content="{Binding Path=BValue}" BorderBrush="Aquamarine" BorderThickness="2"/>
+
+                <Label Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                       Grid.Column="0" Grid.Row="3" Content="Alpha Slider" Background="White" x:Name="Alpha"/>
+                <Label Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                       Grid.Column="1" Grid.Row="3" Content="Red Slider" Background="Red" x:Name="Red"/>
+                <Label Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                       Grid.Column="2" Grid.Row="3" Content="Green Slider" Background="Green" x:Name="Green"/>
+                <Label Visibility="{Binding ElementName=ShowHide, Path=IsChecked, Converter={StaticResource BoolToVis}}" 
+                       Grid.Column="3" Grid.Row="3" Content="Blue Slider" Background="Blue" x:Name="Blue"/>
+
+            </Grid>
+        </StackPanel>
+
+    </Viewbox>
+</Window>
